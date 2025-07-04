@@ -1,5 +1,5 @@
 ﻿#add_executable (BigScene WIN32  "main.cpp")----------
-add_executable (BigScene "main.cpp")
+add_executable (BigScene "main.cpp" "BigSceneApp.h" "MainWindow/MainWindow.h" "MainWindow/MainWindow.cpp")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET BigScene PROPERTY CXX_STANDARD 20)
