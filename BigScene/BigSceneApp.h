@@ -1,4 +1,5 @@
 #include "MainWindow/MainWindow.h"
+#include "VKPipeline/VKPipeline.h"
 
 
 
@@ -12,4 +13,5 @@ public:
 
 private:
 	MainWindow m_mainWindow;
+	VKPipeline m_vkpipeline{"Shaders/test.vert.spv", "Shaders/test.frag.spv"};
 };
