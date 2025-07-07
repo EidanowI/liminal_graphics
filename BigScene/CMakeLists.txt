@@ -1,5 +1,5 @@
 ﻿#add_executable (BigScene WIN32  "main.cpp")----------
-add_executable (BigScene "main.cpp" "BigSceneApp.h" "MainWindow/MainWindow.h" "MainWindow/MainWindow.cpp" "VKPipeline/VKPipeline.h" "VKPipeline/VKPipeline.cpp")
+add_executable (BigScene "main.cpp" "BigSceneApp.h" "MainWindow/MainWindow.h" "MainWindow/MainWindow.cpp" "VKPipeline/VKPipeline.h" "VKPipeline/VKPipeline.cpp" "VKEngineDevice/VKEngineDevice.h" "VKEngineDevice/VKEngineDevice.cpp")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET BigScene PROPERTY CXX_STANDARD 20)
@@ -23,3 +23,5 @@ elseif (UNIX AND NOT APPLE)
 elseif (APPLE)
     target_compile_definitions(BigScene PRIVATE MACOS)
 endif()
+
+target_compile_definitions(BigScene PRIVATE ENABLE_VULKAN_VALIDATION_LAYERS) #DEBUG stuff
