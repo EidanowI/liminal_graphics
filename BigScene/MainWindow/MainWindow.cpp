@@ -11,9 +11,17 @@ MainWindow::~MainWindow() noexcept {
 	glfwTerminate();
 }
 
+
 bool MainWindow::IsShouldClose() noexcept {
 	return glfwWindowShouldClose(m_pGLFWwindow);
 }
+
+void MainWindow::CreateWindowSurface(VkInstance instance, VkSurfaceKHR* surface) {
+	if (glfwCreateWindowSurface(instance, m_pGLFWwindow, nullptr, surface) != VK_SUCCESS) {
+		throw std::runtime_error("Failed to create window surface");
+	}
+}
+
 
 void MainWindow::InitWindow(unsigned int width, unsigned int height) noexcept {
 	glfwInit();

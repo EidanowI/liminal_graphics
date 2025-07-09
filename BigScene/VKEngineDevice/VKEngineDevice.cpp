@@ -78,8 +78,8 @@ void DestroyDebugUtilsMessengerEXT
 VKEngineDevice::VKEngineDevice(MainWindow& window) : m_mainWindow(window){
     CreateInstance();
     SetupDebugMessenger();
-    /*CreateSurface();
-    PickPhysicalDevice();
+    CreateSurface();
+    /*PickPhysicalDevice();
     CreateLogicalDevice();
     CreateCommandPool();*/
 }
@@ -141,6 +141,9 @@ void VKEngineDevice::SetupDebugMessenger() {
     if (CreateDebugUtilsMessengerEXT(m_vkInstance, &createInfo, nullptr, &m_vkDebugMessenger) != VK_SUCCESS) {
         throw std::runtime_error("Failed to set up debug messenger!");
     }
+}
+void VKEngineDevice::CreateSurface() {
+    m_mainWindow.CreateWindowSurface(m_vkInstance, &m_vkSurface);
 }
 
 

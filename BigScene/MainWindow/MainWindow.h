@@ -3,6 +3,8 @@
 #define GLFW_INCLUDE_VULKAN
 #include <GLFW/glfw3.h>
 
+#include <stdexcept>
+
 
 
 class MainWindow {
@@ -15,6 +17,8 @@ public:
 
 public:
 	bool IsShouldClose() noexcept;
+
+	void CreateWindowSurface(VkInstance instance, VkSurfaceKHR* surface);
 
 private:
 	void InitWindow(unsigned int width, unsigned int height) noexcept;
