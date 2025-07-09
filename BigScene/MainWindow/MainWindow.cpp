@@ -2,8 +2,8 @@
 
 
 
-MainWindow::MainWindow() noexcept {
-	InitWindow();
+MainWindow::MainWindow(unsigned int width, unsigned int height) noexcept {
+	InitWindow(width, height);
 }
 MainWindow::~MainWindow() noexcept {
 	glfwDestroyWindow(m_pGLFWwindow);
@@ -15,19 +15,10 @@ bool MainWindow::IsShouldClose() noexcept {
 	return glfwWindowShouldClose(m_pGLFWwindow);
 }
 
-void MainWindow::InitWindow() noexcept {
+void MainWindow::InitWindow(unsigned int width, unsigned int height) noexcept {
 	glfwInit();
 	glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
 	glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
-
-	int width = 1920;
-	int height = 1080;
-
-	const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
-	if (mode) {
-		width = mode->width;
-		height = mode->height;
-	}
 
 	m_pGLFWwindow = glfwCreateWindow(width, height, "BigScene", nullptr, nullptr);
 }

@@ -26,7 +26,13 @@ int main()
 {
     BigSceneApp app = BigSceneApp();
 
-    app.Run();
+    try {
+        app.Run();
+    }
+    catch (const std::exception& e) {
+        std::cerr << "RUNTIME ERROR: " << e.what() << std::endl;
+        return EXIT_FAILURE;
+    }
 
     return 0;
 }
