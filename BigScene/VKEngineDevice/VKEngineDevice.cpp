@@ -6,6 +6,8 @@
 #include <iostream>
 #include <set>
 #include <unordered_set>
+#include <algorithm>
+
 /// <summary>
 /// TODO enebling and disabling layer valid by def preprocessor state
 /// </summary>
@@ -157,19 +159,25 @@ void VKEngineDevice::PickPhysicalDevice() {
     std::vector<VkPhysicalDevice> devices(deviceCount);
     vkEnumeratePhysicalDevices(m_vkInstance, &deviceCount, devices.data());
 
-    for (const auto& device : devices) {
-        if (IsDeviceSuitable(device)) {
-            m_vkPhysicalDevice = device;
-            break;
+    int high_score = -100;
+    int high_score_device_index = -1;
+    for (int i = 0; i < deviceCount; i++) {
+        int tmp_score = GetPhysicalGPUScore(devices[i]);
+        if (IsDeviceSuitable(devices[i]) && high_score < tmp_score) {
+            high_score_device_index = i;
+            high_score = tmp_score;
         }
     }
 
-    if (m_vkPhysicalDevice == VK_NULL_HANDLE) {
+    if (high_score_device_index != -1) {
+        m_vkPhysicalDevice = devices[high_score_device_index];
+        VkPhysicalDeviceProperties properties;
+        vkGetPhysicalDeviceProperties(m_vkPhysicalDevice, &properties);
+        std::cout << "Device is: " << properties.deviceName << '\n';
+    }
+    else {
         throw std::runtime_error("Failed to find a suitable GPU!");
     }
-
-    vkGetPhysicalDeviceProperties(m_vkPhysicalDevice, &properties);
-    std::cout << "physical device: " << properties.deviceName << std::endl;
 }
 
 
@@ -325,4 +333,37 @@ SwapChainSupportDetails VKEngineDevice::QuerySwapChainSupport(VkPhysicalDevice d
         vkGetPhysicalDeviceSurfacePresentModesKHR(device, m_vkSurface, &presentModeCount, details.presentModes.data());
     }
     return details;
+}
+int VKEngineDevice::GetPhysicalGPUScore(VkPhysicalDevice device) {
+    int score = 0;
+
+    VkPhysicalDeviceProperties properties;
+    vkGetPhysicalDeviceProperties(device, &properties);
+
+    if (properties.deviceType == VK_PHYSICAL_DEVICE_TYPE_DISCRETE_GPU) {
+        score += 5;
+    }
+    else if (properties.deviceType == VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU) {
+        score += 2;
+    }
+
+    std::string deviceName = properties.deviceName;
+
+    std::transform(deviceName.begin(), deviceName.end(), deviceName.begin(), ::tolower);
+
+    if (deviceName.find("gtx") != std::string::npos) {
+        score += 3;
+    }
+    else if (deviceName.find("rtx") != std::string::npos) {
+        score += 5;
+    }
+    else if (deviceName.find("rx") != std::string::npos) {
+        score += 4;
+    }
+    else if (deviceName.find("gt") != std::string::npos) {
+        score += 2;
+    }
+
+    std::cout << properties.deviceName << " (score: " << score << ")" << '\n';
+    return score;
 }

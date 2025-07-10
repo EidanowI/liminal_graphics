@@ -54,8 +54,6 @@ public:
 
     //void CreateImageWithInfo(const VkImageCreateInfo& imageInfo,VkMemoryPropertyFlags properties,VkImage& image,VkDeviceMemory& imageMemory);
 
-    VkPhysicalDeviceProperties properties;
-
 private:
     void CreateInstance();
     void SetupDebugMessenger();
@@ -73,6 +71,7 @@ private:
     void HasGLFWRequiredInstanceExtensions();
     bool CheckDeviceExtensionSupport(VkPhysicalDevice device);
     SwapChainSupportDetails QuerySwapChainSupport(VkPhysicalDevice device);
+    int GetPhysicalGPUScore(VkPhysicalDevice device);
 
 private:
 #ifdef ENABLE_VULKAN_VALIDATION_LAYERS
