@@ -60,19 +60,19 @@ private:
     void CreateInstance();
     void SetupDebugMessenger();
     void CreateSurface();
-    //void PickPhysicalDevice();
+    void PickPhysicalDevice();
     //void CreateLogicalDevice();
     //void CreateCommandPool();
 
     // helper functions
-    //bool IsDeviceSuitable(VkPhysicalDevice device);
+    bool IsDeviceSuitable(VkPhysicalDevice device);
     std::vector<const char*> GetRequiredExtensions();
     bool CheckValidationLayerSupport();
-    //QueueFamilyIndices FindQueueFamilies(VkPhysicalDevice device);
+    QueueFamilyIndices FindQueueFamilies(VkPhysicalDevice device);
     void PopulateDebugMessengerCreateInfo(VkDebugUtilsMessengerCreateInfoEXT& createInfo);
     void HasGLFWRequiredInstanceExtensions();
-    //bool CheckDeviceExtensionSupport(VkPhysicalDevice device);
-    //SwapChainSupportDetails QuerySwapChainSupport(VkPhysicalDevice device);
+    bool CheckDeviceExtensionSupport(VkPhysicalDevice device);
+    SwapChainSupportDetails QuerySwapChainSupport(VkPhysicalDevice device);
 
 private:
 #ifdef ENABLE_VULKAN_VALIDATION_LAYERS
@@ -93,5 +93,5 @@ private:
     VkQueue m_vkPresentQueue;
 
     const std::vector<const char*> validationLayers = { "VK_LAYER_KHRONOS_validation" };
-    const std::vector<const char*> deviceExtensions = { VK_KHR_SWAPCHAIN_EXTENSION_NAME };
+    const std::vector<const char*> m_deviceExtensions = { VK_KHR_SWAPCHAIN_EXTENSION_NAME };
 };
