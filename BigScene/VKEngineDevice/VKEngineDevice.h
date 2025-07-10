@@ -15,7 +15,7 @@ struct SwapChainSupportDetails {
     std::vector<VkPresentModeKHR> presentModes;
 };
 
-struct QueueFamilyIndices {
+struct QueueFamilyIndices {///todo make in std::optional<uint32_t> or mb pohui
     uint32_t graphicsFamily;
     uint32_t presentFamily;
     bool graphicsFamilyHasValue = false;
@@ -59,7 +59,7 @@ private:
     void SetupDebugMessenger();
     void CreateSurface();
     void PickPhysicalDevice();
-    //void CreateLogicalDevice();
+    void CreateLogicalDevice();
     //void CreateCommandPool();
 
     // helper functions
