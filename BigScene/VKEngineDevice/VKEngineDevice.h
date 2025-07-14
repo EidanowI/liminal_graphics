@@ -42,8 +42,8 @@ public:
 
     //SwapChainSupportDetails GetSwapChainSupport() { return QuerySwapChainSupport(m_vkPhysicalDevice); }
     //uint32_t FindMemoryType(uint32_t typeFilter, VkMemoryPropertyFlags properties);
-    //QueueFamilyIndices FindPhysicalQueueFamilies() { return FindQueueFamilies(m_vkPhysicalDevice); }
-   // VkFormat FindSupportedFormat(const std::vector<VkFormat>& candidates, VkImageTiling tiling, VkFormatFeatureFlags features);
+    QueueFamilyIndices FindPhysicalQueueFamilies() { return FindQueueFamilies(m_vkPhysicalDevice); }
+    // VkFormat FindSupportedFormat(const std::vector<VkFormat>& candidates, VkImageTiling tiling, VkFormatFeatureFlags features);
 
     // Buffer Helper Functions
     //void CreateBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VkBuffer& buffer, VkDeviceMemory& bufferMemory);
@@ -60,7 +60,7 @@ private:
     void CreateSurface();
     void PickPhysicalDevice();
     void CreateLogicalDevice();
-    //void CreateCommandPool();
+    void CreateCommandPool();
 
     // helper functions
     bool IsDeviceSuitable(VkPhysicalDevice device);

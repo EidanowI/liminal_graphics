@@ -83,9 +83,11 @@ VKEngineDevice::VKEngineDevice(MainWindow& window) : m_mainWindow(window){
     CreateSurface();
     PickPhysicalDevice();
     CreateLogicalDevice();
-    /*CreateCommandPool();*/
+    CreateCommandPool();
 }
 VKEngineDevice::~VKEngineDevice() {
+    vkDestroyCommandPool(m_vkDevice, m_vkCommandPool, nullptr);
+
     vkDestroyDevice(m_vkDevice, nullptr);
 
     vkDestroySurfaceKHR(m_vkInstance, m_vkSurface, nullptr);
@@ -226,6 +228,19 @@ void VKEngineDevice::CreateLogicalDevice() {
 
     vkGetDeviceQueue(m_vkDevice, indices.graphicsFamily, 0, &m_vkGraphicsQueue);
     vkGetDeviceQueue(m_vkDevice, indices.presentFamily, 0, &m_vkPresentQueue);
+}
+void VKEngineDevice::CreateCommandPool() {
+    QueueFamilyIndices queueFamilyIndices = FindPhysicalQueueFamilies();
+
+    VkCommandPoolCreateInfo poolInfo = {};
+    poolInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
+    poolInfo.queueFamilyIndex = queueFamilyIndices.graphicsFamily;
+    poolInfo.flags =
+        VK_COMMAND_POOL_CREATE_TRANSIENT_BIT | VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT;
+
+    if (vkCreateCommandPool(m_vkDevice, &poolInfo, nullptr, &m_vkCommandPool) != VK_SUCCESS) {
+        throw std::runtime_error("Failed to create command pool!");
+    }
 }
 
 
