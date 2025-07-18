@@ -2,7 +2,7 @@
 
 
 
-MainWindow::MainWindow(unsigned int width, unsigned int height) noexcept {
+MainWindow::MainWindow(unsigned int width, unsigned int height) noexcept : m_width(width), m_height(height) {
 	InitWindow(width, height);
 }
 MainWindow::~MainWindow() noexcept {

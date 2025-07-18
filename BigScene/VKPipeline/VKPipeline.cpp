@@ -5,7 +5,7 @@
 VKPipeline::VKPipeline(VKEngineDevice& device, const std::string& vertexShader_name, const std::string& fragmentShader_name, const PipelineConfigInfo& configInfo) : m_engineDevice(device){
 	CreatePipeline(vertexShader_name, fragmentShader_name, configInfo);
 }
-VKPipeline::~VKPipeline() noexcept {
+VKPipeline::~VKPipeline(){
 	vkDestroyPipeline(m_engineDevice.GetDevice(), m_vkGraphicsPipeline, nullptr);
 
 	vkDestroyShaderModule(m_engineDevice.GetDevice(), m_vkVertex_shaderModule, nullptr);
@@ -28,12 +28,6 @@ PipelineConfigInfo VKPipeline::CreateDefaultPipelineConfigInfo(unsigned int widt
 
 	configInfo.scissor.offset = { 0, 0 };
 	configInfo.scissor.extent = { width, height };
-
-	configInfo.viewportInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
-	configInfo.viewportInfo.viewportCount = 1;
-	configInfo.viewportInfo.pViewports = &configInfo.viewport;
-	configInfo.viewportInfo.scissorCount = 1;
-	configInfo.viewportInfo.pScissors = &configInfo.scissor;
 
 	configInfo.rasterizationInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
 	configInfo.rasterizationInfo.depthClampEnable = VK_FALSE;
@@ -141,13 +135,21 @@ void VKPipeline::CreatePipeline(const std::string& vertexShader_name, const std:
 	vertexInputState_createInfo.pVertexAttributeDescriptions = nullptr;
 	vertexInputState_createInfo.vertexAttributeDescriptionCount = 0;
 
+	VkPipelineViewportStateCreateInfo viewport_createInfo{};
+	viewport_createInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
+	viewport_createInfo.viewportCount = 1;
+	viewport_createInfo.pViewports = &configInfo.viewport;
+	viewport_createInfo.scissorCount = 1;
+	viewport_createInfo.pScissors = &configInfo.scissor;
+
+
 	VkGraphicsPipelineCreateInfo pipeline_createInfo{};
 	pipeline_createInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
 	pipeline_createInfo.stageCount = 2;
 	pipeline_createInfo.pStages = shader_stages;
 	pipeline_createInfo.pVertexInputState = &vertexInputState_createInfo;
 	pipeline_createInfo.pInputAssemblyState = &configInfo.inputAssemblyInfo;
-	pipeline_createInfo.pViewportState = &configInfo.viewportInfo;
+	pipeline_createInfo.pViewportState = &viewport_createInfo;
 	pipeline_createInfo.pRasterizationState = &configInfo.rasterizationInfo;
 	pipeline_createInfo.pMultisampleState = &configInfo.multisampleInfo;
 	pipeline_createInfo.pColorBlendState = &configInfo.colorBlendInfo;
