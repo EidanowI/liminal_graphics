@@ -14,3 +14,11 @@ project ("LiminalGraphics")
 # Include sub-projects.
 add_subdirectory ("LiminalGraphics")
 add_subdirectory ("Dependencies/glm")
+add_subdirectory ("Dependencies/lodepng")
+add_subdirectory ("Dependencies/ImGui")
+
+set(RESOURCES_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Resources")
+set(DESTINATION_DIR "${CMAKE_CURRENT_BINARY_DIR}/LiminalGraphics/")
+
+
+file(COPY ${RESOURCES_DIR} DESTINATION ${DESTINATION_DIR})

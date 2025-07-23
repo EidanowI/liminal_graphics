@@ -1,5 +1,5 @@
 ﻿#add_executable (LiminalGraphics WIN32  "main.cpp")----------
-add_executable (LiminalGraphics "main.cpp" "../Dependencies/glad/src/glad.c")
+add_executable (LiminalGraphics "main.cpp" "../Dependencies/glad/src/glad.c" "Engine/Graphics/Mesh/Mesh.h" "Engine/Graphics/Mesh/Mesh.cpp" "Engine/Graphics/Textures/Textures.h" "Engine/Graphics/Textures/Textures.cpp" "Engine/Graphics/ShaderProgram/ShaderProgram.h" "Engine/Graphics/ShaderProgram/ShaderProgram.cpp")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET LiminalGraphics PROPERTY CXX_STANDARD 20)
@@ -11,7 +11,7 @@ include_directories("../Dependencies")
 include_directories("../Dependencies/glad/include")
 
 target_link_directories(LiminalGraphics PRIVATE "../Dependencies/GLFW/")
-target_link_libraries(LiminalGraphics glfw3)
+target_link_libraries(LiminalGraphics glfw3 lodepng imgui)
 
 
 if (WIN32)
@@ -21,3 +21,5 @@ elseif (UNIX AND NOT APPLE)
 elseif (APPLE)
     target_compile_definitions(LiminalGraphics PRIVATE MACOS)
 endif()
+
+target_compile_definitions(LiminalGraphics PRIVATE DEBUG)
