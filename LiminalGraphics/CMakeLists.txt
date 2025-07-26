@@ -1,5 +1,5 @@
 ﻿#add_executable (LiminalGraphics WIN32  "main.cpp")----------
-add_executable (LiminalGraphics "main.cpp" "../Dependencies/glad/src/glad.c" "Engine/Graphics/Mesh/Mesh.h" "Engine/Graphics/Mesh/Mesh.cpp" "Engine/Graphics/Textures/Textures.h" "Engine/Graphics/Textures/Textures.cpp" "Engine/Graphics/ShaderProgram/ShaderProgram.h" "Engine/Graphics/ShaderProgram/ShaderProgram.cpp")
+add_executable (LiminalGraphics "main.cpp" "../Dependencies/glad/src/glad.c" "Engine/Graphics/Mesh/Mesh.h" "Engine/Graphics/Mesh/Mesh.cpp" "Engine/Graphics/Textures/Textures.h" "Engine/Graphics/Textures/Textures.cpp" "Engine/Graphics/ShaderProgram/ShaderProgram.h" "Engine/Graphics/ShaderProgram/ShaderProgram.cpp" "Engine/GameWindow/GameWindow.h" "App.h" "App.cpp" "Engine/GameWindow/GameWindow.cpp" "Engine/ImGuiContext/ImGuiContext.h" "Engine/ImGuiContext/ImGuiContext.cpp")
 
 if (CMAKE_VERSION VERSION_GREATER 3.12)
   set_property(TARGET LiminalGraphics PROPERTY CXX_STANDARD 20)
