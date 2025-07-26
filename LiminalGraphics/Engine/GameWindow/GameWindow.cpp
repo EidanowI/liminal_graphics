@@ -4,12 +4,18 @@
 #include <iostream>
 #endif // DEBUG
 
+#ifdef WIN
+    #define DLL_EXPORT _declspec(dllexport)
+#else
+    #define DLL_EXPORT
+#endif
 
-
+#ifdef USE_POWERFULL_GPU
 extern "C" {
-    _declspec(dllexport) unsigned long NvOptimusEnablement = 1;
-    _declspec(dllexport) int AmdPowerXpressRequestHighPerformance = 1;
+    DLL_EXPORT unsigned long NvOptimusEnablement = 1;
+    DLL_EXPORT int AmdPowerXpressRequestHighPerformance = 1;
 }
+#endif
 
 
 

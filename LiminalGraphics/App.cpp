@@ -45,6 +45,7 @@ void App::Run() {
 
 		ImGui::Begin("aaga");
 		ImGui::BulletText("Hellow world");
+		ImGui::BulletText((const char*)glGetString(GL_RENDERER));
 		ImGui::End();
 		m_imguiContext.EndFrame();
 

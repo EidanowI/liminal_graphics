@@ -23,3 +23,6 @@ elseif (APPLE)
 endif()
 
 target_compile_definitions(LiminalGraphics PRIVATE DEBUG)
+
+
+target_compile_definitions(LiminalGraphics PRIVATE USE_POWERFULL_GPU)
