@@ -6,6 +6,13 @@
 
 
 
+extern "C" {
+    _declspec(dllexport) unsigned long NvOptimusEnablement = 1;
+    _declspec(dllexport) int AmdPowerXpressRequestHighPerformance = 1;
+}
+
+
+
 Engine::GameWindow::GameWindow() {
     InitGLFWWindow();
     InitOpenGL();
